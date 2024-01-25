@@ -81,7 +81,7 @@ The capsule has the following fields:
 
 Media Bitrate: Indicates the average bitrate that is supported by the network without traffic shaping.
 
-Average Window: Indicates that time that is used to calculate the average bit rate. This field is optional.
+Average Window: Indicates the duration over which the bitrate is enforced. The largest allowed burst is given by Media Bitrate * Average window. This field is optional.
 
 # Security Considerations
 

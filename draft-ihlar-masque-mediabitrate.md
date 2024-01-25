@@ -58,7 +58,7 @@ The extension can be used with the HTTP CONNECT method when the :protocol pseudo
 Clinets can request to received media bitrate information from an
 HTTP proxy by including the boolean-valued Item Structured Field "Media-Bitrate: ?1" in the HTTP Request.
 The HTTP proxy indicates support by also adding "Media-Bitrate: ?1" in the Response headers.
-See Section {{3.3.6 of !RFC8941}} for information about the boolean format.
+See {{Section 3.3.6 of !RFC8941}} for information about the boolean format.
 
 If media bitrate signaling is requested by the client and suported by the proxy,
 the proxy MAY send an MEDIA_BITRATE capsule any time during the lifetime of the stream

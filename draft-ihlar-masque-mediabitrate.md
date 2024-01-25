@@ -21,7 +21,7 @@
 ###
 title: "MASQUE extension for signaling media bitrate"
 abbrev: "MASQUE media bitrate capsule"
-category: ps
+category: std
 
 docname: draft-ihlar-masque-mediabitrate-latest
 submissiontype: IETF

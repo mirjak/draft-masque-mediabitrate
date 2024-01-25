@@ -19,35 +19,35 @@
 # Change the file extension to match the format (.xml for XML, etc...)
 #
 ###
-title: "TODO - Your title"
-abbrev: "TODO - Abbreviation"
-category: info
+title: "MASQUE extension for signaling media bitrate"
+abbrev: "MASQUE media bitrate capsule"
+category: ps
 
-docname: draft-todo-yourname-protocol-latest
-submissiontype: IETF  # also: "independent", "editorial", "IAB", or "IRTF"
+docname: draft-ihlar-masque-mediabitrate-latest
+submissiontype: IETF
 number:
 date:
 consensus: true
 v: 3
-area: AREA
+area: WIT
 workgroup: WG Working Group
 keyword:
- - next generation
- - unicorn
- - sparkling distributed ledger
+ - media bitrate
 venue:
-  group: WG
+  group: MASQUE
   type: Working Group
-  mail: WG@example.com
-  arch: https://example.com/WG
+  mail: masque@ietf.com
   github: USER/REPO
-  latest: https://example.com/LATEST
 
 author:
  -
-    fullname: Your Name Here
-    organization: Your Organization Here
-    email: your.email@example.com
+    fullname: Marcus Ihlar
+    organization: Ericsson
+    email: marcus.ihlar@ericsson.com
+ -
+    fullname: Mirja Kühlewind
+    organization: Ericsson
+    email: mirja.kuehlewind@ericsson.com
 
 normative:
 

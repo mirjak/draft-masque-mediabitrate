@@ -62,7 +62,7 @@ See Section {{3.3.6 of !RFC8941}} for information about the boolean format.
 
 If media bitrate signaling is requested by the client and suported by the proxy,
 the proxy MAY send an MEDIA_BITRATE capsule any time during the lifetime of the stream
-where media bitrate signaling was requested. 
+where media bitrate signaling was requested.
 
 # MEDIA_BITRATE Capsule Type Format
 
@@ -79,7 +79,7 @@ MEDIA_BITRATE Capsule {
 
 The capsule has the following fields:
 
-Media Bitrate: Indicates the average bitrate that is supported by the network without traffic shaping. 
+Media Bitrate: Indicates the average bitrate that is supported by the network without traffic shaping.
 
 Average Window: Indicates that time that is used to calculate the average bit rate. This field is optional.
 

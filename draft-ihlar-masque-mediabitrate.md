@@ -9,15 +9,15 @@ number:
 date:
 consensus: true
 v: 3
-area: WIT
-workgroup: WG Working Group
+area: "Web and Internet Transport"
+workgroup: "Multiplexed Application Substrate over QUIC Encryption"
 keyword:
  - media bitrate
 venue:
-  group: MASQUE
-  type: Working Group
-  mail: masque@ietf.com
-  github: USER/REPO
+  group: "Multiplexed Application Substrate over QUIC Encryption"
+  type: "Working Group"
+  mail: "masque@ietf.org"
+  github: "mirjak/draft-masque-mediabitrate"
 
 author:
  -

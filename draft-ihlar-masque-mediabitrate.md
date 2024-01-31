@@ -47,7 +47,7 @@ This information can be used by a media application to regulate it's media bitra
 
 This document specifies a new Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT extensions to signal the available
 bitrate for media traffic that is proxied through an HTTP server.
-This information can be used by a media application to regulate it's media bitrate in accordance with a network policy, as an alternative to in-network traffic shaping. 
+This information can be used by a media application to regulate it's media bitrate in accordance with a network policy, as an alternative to in-network traffic shaping.
 
 The extension can be used with the HTTP CONNECT method when the :protocol pseudo header is equal to "connect-udp" or "connect-ip" and with future CONNECT protocols that use the Capsule Protocol.
 

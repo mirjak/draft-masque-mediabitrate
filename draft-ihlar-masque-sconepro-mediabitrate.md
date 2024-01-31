@@ -3,7 +3,7 @@ title: "MASQUE extension for signaling media bitrate"
 abbrev: "MASQUE media bitrate capsule"
 category: std
 
-docname: draft-ihlar-sconepro-masque-mediabitrate-latest
+docname: draft-ihlar--masque-mediabitrate-latest
 submissiontype: IETF
 number:
 date:

@@ -100,7 +100,7 @@ media bitrate capsule to inform the client about how it enforces bitrates.
 # Performance Considerations
 
 This protocol is intended to provide policy indications to applications traversing a network. Using HTTP proxying for this purpose does add overhead in terms of CPU, memory and MTU.
-It is RECOMMENDED that this solution is used together with QUIC-Aware proxying whenever possible.
+It is RECOMMENDED that this solution is used together with QUIC-Aware proxying {{!I-D.ietf-masque-quic-proxy}} whenever possible.
 
 # Security Considerations
 

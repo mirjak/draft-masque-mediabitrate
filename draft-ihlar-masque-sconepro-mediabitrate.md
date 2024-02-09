@@ -38,7 +38,7 @@ informative:
 
 This document specifies a new Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT extensions to signal the available
 bitrate for media traffic that is proxied through an HTTP server.
-This information can be used by a media application to regulate it's media bitrate in accordance with a network policy, as an alternative to in-network traffic shaping.
+This information can be used by a media application to regulate its media bitrate in accordance with a network policy, as an alternative to in-network traffic shaping.
 
 
 --- middle
@@ -47,7 +47,7 @@ This information can be used by a media application to regulate it's media bitra
 
 This document specifies a new Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT extensions to signal the available
 bitrate for media traffic that is proxied through an HTTP server.
-This information can be used by a media application to regulate it's media bitrate in accordance with a network policy, as an alternative to in-network traffic shaping.
+This information can be used by a media application to regulate its media bitrate in accordance with a network policy, as an alternative to in-network traffic shaping.
 
 The extension can be used with the HTTP CONNECT method when the :protocol pseudo header is equal to "connect-udp" or "connect-ip" and with future CONNECT protocols that use the Capsule Protocol.
 
@@ -92,9 +92,10 @@ coordinate with an application server is out of scope for this document.
 # Proxy Behaviour
 
 A proxy that sends media bitrate capsules needs to be tightly integrated with the access network infrastructure and policy framework. A proxy that sends media bitrate capsules does
-so as an alternative to traffic shaping, the policies that govern shaping behaviour may be used to determine the values sent with media bitrate capsules.
-A proxy may wish to enforce that the bitrate policy is respected and apply shaping or policing to traffic that is breaching the policy. It is RECOMMENDED that the proxy uses an
-averaging window that is sufficiently long to allow data transmission bursts that make full use of the available network capacity. A proxy can use the Average Window field in the
+so as an alternative to traffic shaping, the policies that govern shaping behaviour can be used to determine the values sent with media bitrate capsules.
+
+A proxy might still apply shaping or policing to traffic that is breaching the policy in order to ensure that the bitrate policy is respected. In this case, it is RECOMMENDED that the proxy uses an
+averaging window that is sufficiently long to allow data transmission bursts that make full use of the available network capacity. A proxy can SHOULD the Average Window field in the
 media bitrate capsule to inform the client about how it enforces bitrates.
 
 # Performance Considerations

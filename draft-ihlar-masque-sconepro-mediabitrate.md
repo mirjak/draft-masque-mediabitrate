@@ -85,16 +85,16 @@ Average Window: Indicates the duration over which the bitrate is enforced. The l
 
 # Client Behaviour
 
-A client that receives media bitrate capsules needs to make the information available to the media application, this is implementation specific and out of scope for this document.
+A client that receives media bitrate capsules needs to make the information available to a media application, this is implementation specific and out of scope for this document.
 A media application can use the information to select a media track that conforms with the specified bitrate. How this is done and whether an application client needs to explicitly
 coordinate with an application server is out of scope for this document.
 
 # Proxy Behaviour
 
 A proxy that sends media bitrate capsules needs to be tightly integrated with the access network infrastructure and policy framework. A proxy that sends media bitrate capsules does
-so as an alternatvie to traffic shaping, the policies that govern shaping behaviour may be used to determine the values sent with media bitrate capsules.
+so as an alternative to traffic shaping, the policies that govern shaping behaviour may be used to determine the values sent with media bitrate capsules.
 A proxy may wish to enforce that the bitrate policy is respected and apply shaping or policing to traffic that is breaching the policy. It is RECOMMENDED that the proxy uses an
-averageing window that is sufficiently long to allow data transmission bursts that make full use of the available network capacity. A proxy can use the Average Window field in the
+averaging window that is sufficiently long to allow data transmission bursts that make full use of the available network capacity. A proxy can use the Average Window field in the
 media bitrate capsule to inform the client about how it enforces bitrates.
 
 # Performance Considerations

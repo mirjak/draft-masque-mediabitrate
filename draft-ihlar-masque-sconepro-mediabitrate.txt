@@ -5,7 +5,7 @@
 Multiplexed Application Substrate over QUIC Encryption          M. Ihlar
 Internet-Draft                                              M. Kühlewind
 Intended status: Standards Track                                Ericsson
-Expires: 12 August 2024                                  9 February 2024
+Expires: 19 April 2025                                   16 October 2024
 
 
               MASQUE extension for signaling media bitrate
@@ -52,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 12 August 2024.
+   This Internet-Draft will expire on 19 April 2025.
 
 Copyright Notice
 
@@ -212,9 +212,9 @@ Table of Contents
    [I-D.ietf-masque-quic-proxy]
               Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
               Proxying Using HTTP", Work in Progress, Internet-Draft,
-              draft-ietf-masque-quic-proxy-00, 17 August 2023,
+              draft-ietf-masque-quic-proxy-03, 7 July 2024,
               <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
-              quic-proxy-00>.
+              quic-proxy-03>.
 
    [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
               Requirement Levels", BCP 14, RFC 2119,

@@ -10,11 +10,11 @@ date:
 consensus: true
 v: 3
 area: "Web and Internet Transport"
-workgroup: "Stabdard Communication with Network Elements"
+workgroup: "Standard Communication with Network Elements"
 keyword:
  - media bitrate
 venue:
-  group: "Stabdard Communication with Network Elements"
+  group: "Standard Communication with Network Elements"
   type: "Working Group"
   mail: "scone@ietf.org"
   github: "mirjak/draft-masque-mediabitrate"

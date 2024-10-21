@@ -77,14 +77,18 @@ THROUGHPUT_ADVICE Capsule {
 The capsule has the following fields:
 
 Bitrate: The maximum sustainable throughput the client can expect for proxied traffic.
+Expressed in kilobits per second.
 
-Average Window: Indicates the duration over which the bitrate is enforced. This field is optional.
+Average Window: Indicates the duration over which the bitrate is enforced. Expressed in 
+milliseconds. This field is optional.
 
 # Applicability
 
-If the sole purpose of the communication between a client endpoint and a network element is the exchange of throughput advice it is RECOMMENDED to use more light weight approaches
-than HTTP proxying, such as {{?TRAIN=I-D.draft-thomson-scone-train-protocol}}. However, for cases where clients connect to the Internet via Masque proxies and also want to receive
-throghput advice from the Masque proxy it can be beneficial to communicate directly with the Proxy using the already established communication channel.
+If the sole purpose of the communication between a client endpoint and a network element is the exchange of throughput advice it is 
+RECOMMENDED to use more light weight approaches than HTTP proxying, such as {{?SCONE=I-D.joras-scone-quic-protocol}} or 
+{{?TRAIN=I-D.thomson-scone-train-protocol}}. 
+However, for cases where clients connect to the Internet via Masque proxies and also want to receive throghput advice from the 
+Masque proxy it can be beneficial to communicate directly with the Proxy using the already established communication channel.
 
 # Security Considerations
 

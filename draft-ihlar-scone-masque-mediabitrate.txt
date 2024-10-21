@@ -129,20 +129,21 @@ Table of Contents
    The capsule has the following fields:
 
    Bitrate: The maximum sustainable throughput the client can expect for
-   proxied traffic.
+   proxied traffic.  Expressed in kilobits per second.
 
    Average Window: Indicates the duration over which the bitrate is
-   enforced.  This field is optional.
+   enforced.  Expressed in milliseconds.  This field is optional.
 
 5.  Applicability
 
    If the sole purpose of the communication between a client endpoint
    and a network element is the exchange of throughput advice it is
    RECOMMENDED to use more light weight approaches than HTTP proxying,
-   such as [TRAIN].  However, for cases where clients connect to the
-   Internet via Masque proxies and also want to receive throghput advice
-   from the Masque proxy it can be beneficial to communicate directly
-   with the Proxy using the already established communication channel.
+   such as [SCONE] or [TRAIN].  However, for cases where clients connect
+   to the Internet via Masque proxies and also want to receive throghput
+   advice from the Masque proxy it can be beneficial to communicate
+   directly with the Proxy using the already established communication
+   channel.
 
 6.  Security Considerations
 
@@ -195,6 +196,12 @@ Table of Contents
               <https://www.rfc-editor.org/rfc/rfc8941>.
 
 8.2.  Informative References
+
+   [SCONE]    Joras, M. and M. Ihlar, "A new QUIC version for network
+              property communication", Work in Progress, Internet-Draft,
+              draft-joras-scone-quic-protocol-00, 21 October 2024,
+              <https://datatracker.ietf.org/doc/html/draft-joras-scone-
+              quic-protocol-00>.
 
    [TRAIN]    Thomson, M., Huitema, C., and K. Oku, "Transparent Rate
               Adaptation Indications for Networks (TRAIN) Protocol",

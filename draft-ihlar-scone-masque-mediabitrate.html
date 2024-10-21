@@ -1231,8 +1231,10 @@ THROUGHPUT_ADVICE Capsule {
 </pre><a href="#section-4-2" class="pilcrow">¶</a>
 </div>
 <p id="section-4-3">The capsule has the following fields:<a href="#section-4-3" class="pilcrow">¶</a></p>
-<p id="section-4-4">Bitrate: The maximum sustainable throughput the client can expect for proxied traffic.<a href="#section-4-4" class="pilcrow">¶</a></p>
-<p id="section-4-5">Average Window: Indicates the duration over which the bitrate is enforced. This field is optional.<a href="#section-4-5" class="pilcrow">¶</a></p>
+<p id="section-4-4">Bitrate: The maximum sustainable throughput the client can expect for proxied traffic.
+Expressed in kilobits per second.<a href="#section-4-4" class="pilcrow">¶</a></p>
+<p id="section-4-5">Average Window: Indicates the duration over which the bitrate is enforced. Expressed in
+milliseconds. This field is optional.<a href="#section-4-5" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="applicability">
@@ -1240,9 +1242,11 @@ THROUGHPUT_ADVICE Capsule {
       <h2 id="name-applicability">
 <a href="#section-5" class="section-number selfRef">5. </a><a href="#name-applicability" class="section-name selfRef">Applicability</a>
       </h2>
-<p id="section-5-1">If the sole purpose of the communication between a client endpoint and a network element is the exchange of throughput advice it is <span class="bcp14">RECOMMENDED</span> to use more light weight approaches
-than HTTP proxying, such as <span>[<a href="#TRAIN" class="cite xref">TRAIN</a>]</span>. However, for cases where clients connect to the Internet via Masque proxies and also want to receive
-throghput advice from the Masque proxy it can be beneficial to communicate directly with the Proxy using the already established communication channel.<a href="#section-5-1" class="pilcrow">¶</a></p>
+<p id="section-5-1">If the sole purpose of the communication between a client endpoint and a network element is the exchange of throughput advice it is
+<span class="bcp14">RECOMMENDED</span> to use more light weight approaches than HTTP proxying, such as <span>[<a href="#SCONE" class="cite xref">SCONE</a>]</span> or
+<span>[<a href="#TRAIN" class="cite xref">TRAIN</a>]</span>.
+However, for cases where clients connect to the Internet via Masque proxies and also want to receive throghput advice from the
+Masque proxy it can be beneficial to communicate directly with the Proxy using the already established communication channel.<a href="#section-5-1" class="pilcrow">¶</a></p>
 </section>
 </div>
 <div id="security-considerations">
@@ -1356,6 +1360,10 @@ throghput advice from the Masque proxy it can be beneficial to communicate direc
 <a href="#section-8.2" class="section-number selfRef">8.2. </a><a href="#name-informative-references" class="section-name selfRef">Informative References</a>
         </h3>
 <dl class="references">
+<dt id="SCONE">[SCONE]</dt>
+        <dd>
+<span class="refAuthor">Joras, M.</span> and <span class="refAuthor">M. Ihlar</span>, <span class="refTitle">"A new QUIC version for network property communication"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-joras-scone-quic-protocol-00</span>, <time datetime="2024-10-21" class="refDate">21 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-joras-scone-quic-protocol-00">https://datatracker.ietf.org/doc/html/draft-joras-scone-quic-protocol-00</a>&gt;</span>. </dd>
+<dd class="break"></dd>
 <dt id="TRAIN">[TRAIN]</dt>
       <dd>
 <span class="refAuthor">Thomson, M.</span>, <span class="refAuthor">Huitema, C.</span>, and <span class="refAuthor">K. Oku</span>, <span class="refTitle">"Transparent Rate Adaptation Indications for Networks (TRAIN) Protocol"</span>, <span class="refContent">Work in Progress</span>, <span class="seriesInfo">Internet-Draft, draft-thomson-scone-train-protocol-00</span>, <time datetime="2024-10-14" class="refDate">14 October 2024</time>, <span>&lt;<a href="https://datatracker.ietf.org/doc/html/draft-thomson-scone-train-protocol-00">https://datatracker.ietf.org/doc/html/draft-thomson-scone-train-protocol-00</a>&gt;</span>. </dd>

@@ -1,6 +1,6 @@
 ---
-title: "MASQUE extension for signaling media bitrate"
-abbrev: "MASQUE media bitrate capsule"
+title: "MASQUE extension for signaling throughput advice"
+abbrev: "MASQUE throughput advice capsule"
 category: std
 
 docname: draft-ihlar-scone-masque-mediabitrate-latest
@@ -10,13 +10,13 @@ date:
 consensus: true
 v: 3
 area: "Web and Internet Transport"
-workgroup: "Multiplexed Application Substrate over QUIC Encryption"
+workgroup: "Standard Communication with Network Elements"
 keyword:
  - media bitrate
 venue:
-  group: "Multiplexed Application Substrate over QUIC Encryption"
+  group: "Standard Communication with Network Elements"
   type: "Working Group"
-  mail: "masque@ietf.org"
+  mail: "scone@ietf.org"
   github: "mirjak/draft-masque-mediabitrate"
 
 author:
@@ -36,18 +36,15 @@ informative:
 
 --- abstract
 
-This document specifies a new Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT extensions to signal the available
-bitrate for media traffic that is proxied through an HTTP server.
-This information can be used by a media application to regulate its media bitrate in accordance with a network policy, as an alternative to in-network traffic shaping.
-
+This document specifies a new Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT extensions to signal throughput advice for
+traffic that is proxied through an HTTP server.
 
 --- middle
 
 # Introduction
 
-This document specifies a new Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT extensions to signal the available
-bitrate for media traffic that is proxied through an HTTP server.
-This information can be used by a media application to regulate its media bitrate in accordance with a network policy, as an alternative to in-network traffic shaping.
+This document specifies an HTTP Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT extensions to signal throughput advice for
+traffic that is proxied through an HTTP server.
 
 The extension can be used with the HTTP CONNECT method when the :protocol pseudo header is equal to "connect-udp" or "connect-ip" and with future CONNECT protocols that use the Capsule Protocol.
 
@@ -55,53 +52,39 @@ The extension can be used with the HTTP CONNECT method when the :protocol pseudo
 
 {::boilerplate bcp14-tagged}
 
-# Indicating Support for Media Bitrate Signaling
+# Indicating Support for Throughput Advice Signaling
 
-A client who wishes to receive media bitrate capsules can indicate support by sending a request header with
-the boolean-valued Item Structured Field "Media-Bitrate: ?1".
-The HTTP proxy indicates support by sending a response header with the boolean-valued Item Structured Field "Media-Bitrate: ?1"
+A client who wishes to receive throughput advice capsules can indicate support by sending a request header with
+the boolean-valued Item Structured Field "Throughput-Advice: ?1".
+The HTTP proxy indicates support by sending a response header with the boolean-valued Item Structured Field "Throughput-Advice: ?1"
 See {{Section 3.3.6 of !RFC8941}} for information about the boolean format.
 
-Once support has been established, a proxy MAY send MEDIA_BITRATE capsules at any time during the lifetime of the stream that originated the request.
+Once support has been established, a proxy MAY send THROUGHPUT_ADVICE capsules at any time during the lifetime of the stream that originated the request.
 
-# MEDIA_BITRATE Capsule Type Format
+# THROUGHPUT_ADVICE Capsule Type Format
 
-The MEDIA_BITRATE Capsule has the following format:
+The THROUGHPUT_ADVICE Capsule has the following format:
 
 ~~~
-MEDIA_BITRATE Capsule {
-  Type (i) = MEDIA_BITRATE,
+THROUGHPUT_ADVICE Capsule {
+  Type (i) = 0xTBD,
   Length (i)
-  Media Bitrate (i)
+  Bitrate (i)
   [Average Window (i)]
 }
 ~~~
 
 The capsule has the following fields:
 
-Media Bitrate: Indicates the average bitrate that is supported by the network without traffic shaping.
+Bitrate: The maximum sustainable throughput the client can expect for proxied traffic.
 
-Average Window: Indicates the duration over which the bitrate is enforced. The largest allowed burst is given by Media Bitrate * Average window. This field is optional.
+Average Window: Indicates the duration over which the bitrate is enforced. This field is optional.
 
-# Client Behaviour
+# Applicability
 
-A client that receives media bitrate capsules needs to make the information available to a media application, this is implementation specific and out of scope for this document.
-A media application can use the information to select a media track that conforms with the specified bitrate. How this is done and whether an application client needs to explicitly
-coordinate with an application server is out of scope for this document.
-
-# Proxy Behaviour
-
-A proxy that sends media bitrate capsules needs to be tightly integrated with the access network infrastructure and policy framework. A proxy that sends media bitrate capsules does
-so as an alternative to traffic shaping, the policies that govern shaping behaviour can be used to determine the values sent with media bitrate capsules.
-
-A proxy might still apply shaping or policing to traffic that is breaching the policy in order to ensure that the bitrate policy is respected. In this case, it is RECOMMENDED that the proxy uses an
-averaging window that is sufficiently long to allow data transmission bursts that make full use of the available network capacity. A proxy can SHOULD the Average Window field in the
-media bitrate capsule to inform the client about how it enforces bitrates.
-
-# Performance Considerations
-
-This protocol is intended to provide policy indications to applications traversing a network. Using HTTP proxying for this purpose does add overhead in terms of CPU, memory and MTU.
-It is RECOMMENDED that this solution is used together with QUIC-Aware proxying {{!I-D.ietf-masque-quic-proxy}} whenever possible.
+If the sole purpose of the communication between a client endpoint and a network element is the exchange of throughput advice it is RECOMMENDED to use more light weight approaches
+than HTTP proxying, such as {{?TRAIN=I-D.draft-thomson-scone-train-protocol}}. However, for cases where clients connect to the Internet via Masque proxies and also want to receive
+throghput advice from the Masque proxy it can be beneficial to communicate directly with the Proxy using the already established communication channel.
 
 # Security Considerations
 
@@ -125,7 +108,7 @@ This document adds following entry to the "Hypertext Transfer Protocol (HTTP) Fi
 
 | Field Name     | Template | Status    | Reference       | Comments |
 | -------------- | -------- | --------- | --------------- | -------- |
-| Media-Bitrate  |          | permanent | (This document) |          |
+| Throughput-Advice  |          | permanent | (This document) |          |
 {: #iana-http-field title="HTTP Field Name to register" cols="l l l l l"}
 
 --- back

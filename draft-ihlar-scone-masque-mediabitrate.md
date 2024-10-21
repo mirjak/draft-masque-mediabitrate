@@ -43,10 +43,11 @@ traffic that is proxied through an HTTP server.
 
 # Introduction
 
-This document specifies an HTTP Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT extensions to signal throughput advice for
-traffic that is proxied through an HTTP server.
+This document specifies an HTTP Capsule (RFC9297) that can be used with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484),
+or other future CONNECT extensions to signal throughput advice for traffic proxied through an HTTP server.
 
-The extension can be used with the HTTP CONNECT method when the :protocol pseudo header is equal to "connect-udp" or "connect-ip" and with future CONNECT protocols that use the Capsule Protocol.
+The extension can be used with the HTTP CONNECT method when the :protocol pseudo-header is equal to "connect-udp"
+or "connect-ip", as well as with future CONNECT protocols that use the Capsule Protocol.
 
 # Conventions and Definitions
 
@@ -54,12 +55,13 @@ The extension can be used with the HTTP CONNECT method when the :protocol pseudo
 
 # Indicating Support for Throughput Advice Signaling
 
-A client who wishes to receive throughput advice capsules can indicate support by sending a request header with
-the boolean-valued Item Structured Field "Throughput-Advice: ?1".
-The HTTP proxy indicates support by sending a response header with the boolean-valued Item Structured Field "Throughput-Advice: ?1"
+A client that wishes to receive throughput advice capsules can indicate support by sending a request header
+with the boolean-valued Item Structured Field: "Throughput-Advice: ?1". The HTTP proxy can indicate support
+by sending a response header with the same boolean-valued Item Structured Field: "Throughput-Advice: ?1".
 See {{Section 3.3.6 of !RFC8941}} for information about the boolean format.
 
-Once support has been established, a proxy MAY send THROUGHPUT_ADVICE capsules at any time during the lifetime of the stream that originated the request.
+Once support has been established, a proxy MAY send THROUGHPUT_ADVICE capsules at any time during the
+lifetime of the stream that originated the request.
 
 # THROUGHPUT_ADVICE Capsule Type Format
 
@@ -76,19 +78,22 @@ THROUGHPUT_ADVICE Capsule {
 
 The capsule has the following fields:
 
-Bitrate: The maximum sustainable throughput the client can expect for proxied traffic.
-Expressed in kilobits per second.
+Bitrate: The maximum sustainable throughput that the client can expect for proxied traffic,
+expressed in kilobits per second.
 
-Average Window: Indicates the duration over which the bitrate is enforced. Expressed in
-milliseconds. This field is optional.
+Average Window: Indicates the duration over which the bitrate is enforced, expressed in milliseconds.
+This field is optional.
 
 # Applicability
 
-If the sole purpose of the communication between a client endpoint and a network element is the exchange of throughput advice it is
-RECOMMENDED to use more light weight approaches than HTTP proxying, such as {{?SCONE=I-D.joras-scone-quic-protocol}} or
+If the sole purpose of the communication between a client endpoint and a network element
+is the exchange of throughput advice, it is RECOMMENDED to use more lightweight approaches
+than HTTP proxying, such as {{?SCONE=I-D.joras-scone-quic-protocol}} or
 {{?TRAIN=I-D.thomson-scone-train-protocol}}.
-However, for cases where clients connect to the Internet via Masque proxies and also want to receive throghput advice from the
-Masque proxy it can be beneficial to communicate directly with the Proxy using the already established communication channel.
+
+However, in cases where clients connect to the Internet via MASQUE proxies and also want to
+receive throughput advice from the MASQUE proxy, it can be beneficial to communicate directly
+with the proxy using the already established communication channel.
 
 # Security Considerations
 

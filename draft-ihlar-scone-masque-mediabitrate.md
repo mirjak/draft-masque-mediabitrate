@@ -1,5 +1,5 @@
 ---
-title: "MASQUE extension for signaling media bitrate"
+title: "MASQUE extension for signaling throughput advice"
 abbrev: "MASQUE throughput advice capsule"
 category: std
 
@@ -10,13 +10,13 @@ date:
 consensus: true
 v: 3
 area: "Web and Internet Transport"
-workgroup: "Multiplexed Application Substrate over QUIC Encryption"
+workgroup: "Stabdard Communication with Network Elements"
 keyword:
  - media bitrate
 venue:
-  group: "Multiplexed Application Substrate over QUIC Encryption"
+  group: "Stabdard Communication with Network Elements"
   type: "Working Group"
-  mail: "masque@ietf.org"
+  mail: "scone@ietf.org"
   github: "mirjak/draft-masque-mediabitrate"
 
 author:

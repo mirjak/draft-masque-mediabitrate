@@ -1,6 +1,6 @@
 {
   "magic": "E!vIA5L86J2I",
-  "timestamp": "2024-10-20T01:16:04.266141+00:00",
+  "timestamp": "2024-10-22T01:11:08.449115+00:00",
   "repo": "mirjak/draft-masque-mediabitrate",
   "labels": [
     {
@@ -62,10 +62,47 @@
       "labels": [],
       "body": "Add a section that makes clear that this proposal does not consider discovery as it is assumed that there is already a masque proxy in place.",
       "createdAt": "2024-10-18T09:26:36Z",
-      "updatedAt": "2024-10-18T09:26:36Z",
+      "updatedAt": "2024-10-21T18:17:20Z",
       "closedAt": null,
-      "comments": []
+      "comments": [
+        {
+          "author": "ihlar",
+          "authorAssociation": "COLLABORATOR",
+          "body": "addressed in #2 ",
+          "createdAt": "2024-10-21T18:17:18Z",
+          "updatedAt": "2024-10-21T18:17:18Z"
+        }
+      ]
     }
   ],
-  "pulls": []
+  "pulls": [
+    {
+      "number": 2,
+      "id": "PR_kwDOLJj2Nc5_W-BJ",
+      "title": "Applicability",
+      "url": "https://github.com/mirjak/draft-masque-mediabitrate/pull/2",
+      "state": "MERGED",
+      "author": "ihlar",
+      "authorAssociation": "COLLABORATOR",
+      "assignees": [],
+      "labels": [],
+      "body": "",
+      "createdAt": "2024-10-21T18:11:34Z",
+      "updatedAt": "2024-10-21T18:19:14Z",
+      "baseRepository": "mirjak/draft-masque-mediabitrate",
+      "baseRefName": "main",
+      "baseRefOid": "e8f010d364130870ff4b13b5f099927efd50bebf",
+      "headRepository": "mirjak/draft-masque-mediabitrate",
+      "headRefName": "applicability",
+      "headRefOid": "19fdf642a10bbc07a0d6d0df44b6343bb98dcb0f",
+      "closedAt": "2024-10-21T18:19:14Z",
+      "mergedAt": "2024-10-21T18:19:14Z",
+      "mergedBy": "ihlar",
+      "mergeCommit": {
+        "oid": "199e4ce6331e6f82f6cafe5b4ee3872c9adaad67"
+      },
+      "comments": [],
+      "reviews": []
+    }
+  ]
 }

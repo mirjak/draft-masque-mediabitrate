@@ -7,9 +7,9 @@
 *~
 .tags
 /*-[0-9][0-9].xml
+/.*.mk
 /.gems/
 /.refcache
-/.targets.mk
 /.venv/
 /.vscode/
 /lib
@@ -17,7 +17,8 @@
 /versioned/
 Gemfile.lock
 archive.json
-draft-ihlar-masque-mediabitrate.xml
+draft-ihlar-masque-sconepro-mediabitrate.xml
+draft-ihlar-scone-masque-mediabitrate.xml
 package-lock.json
 report.xml
 !requirements.txt

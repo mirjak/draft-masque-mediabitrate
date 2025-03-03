@@ -95,10 +95,6 @@ If the sole purpose of the communication between a client endpoint and a network
 is the exchange of throughput advice, it is RECOMMENDED to use more lightweight approaches
 than HTTP proxying, such as {{?TRONE=I-D.thoji-scone-trone-protocol}}.
 
-However, in cases where clients connect to the Internet via MASQUE proxies and also want to
-receive throughput advice from the MASQUE proxy, it can be beneficial to communicate directly
-with the proxy using the already established communication channel.
-
 # Security Considerations
 
 TODO Security

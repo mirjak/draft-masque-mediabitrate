@@ -71,14 +71,14 @@ The THROUGHPUT_ADVICE Capsule has the following format:
 THROUGHPUT_ADVICE Capsule {
   Type (i) = 0xTBD,
   Length (i)
-  Bitrate (i)
+  Rate Limit (i)
   [Average Window (i)]
 }
 ~~~
 
 The capsule has the following fields:
 
-Bitrate: The maximum sustainable throughput that the client can expect for proxied traffic,
+Rate Limit: The maximum sustainable throughput that the client can expect for proxied traffic,
 expressed in kilobits per second.
 
 Average Window: Indicates the duration over which the bitrate is enforced, expressed in milliseconds.
@@ -86,10 +86,14 @@ This field is optional.
 
 # Applicability
 
+A proxy that intends to rate limit proxied traffic can notify clients using the
+THROUGHPUT_ADVICE capsule. Reasons for rate limiting traffic through a proxy
+include enforcement of access network policies, proxy resource management and
+proxy service differentiation.
+
 If the sole purpose of the communication between a client endpoint and a network element
 is the exchange of throughput advice, it is RECOMMENDED to use more lightweight approaches
-than HTTP proxying, such as {{?SCONE=I-D.joras-scone-quic-protocol}} or
-{{?TRAIN=I-D.thomson-scone-train-protocol}}.
+than HTTP proxying, such as {{?TRONE=I-D.thoji-scone-trone-protocol}}.
 
 However, in cases where clients connect to the Internet via MASQUE proxies and also want to
 receive throughput advice from the MASQUE proxy, it can be beneficial to communicate directly
@@ -106,9 +110,9 @@ TODO Security
 
 This document adds following entries to the "HTTP Capsule Types" registry:
 
-| Capsule Type   | Value | Specification   |
-| -------------- | ----- | --------------- |
-| MEDIA-BITRATE  | TBD   | (This document) |
+| Capsule Type       | Value | Specification   |
+| ------------------ | ----- | --------------- |
+| THROUGHPUT_ADVICE  | TBD   | (This document) |
 {: #iana-capsule-type title="New Capsule Type to register" cols="l l l"}
 
 ## HTTP headers

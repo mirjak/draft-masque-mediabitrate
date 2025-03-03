@@ -5,7 +5,7 @@
 Standard Communication with Network Elements                    M. Ihlar
 Internet-Draft                                              M. Kühlewind
 Intended status: Standards Track                                Ericsson
-Expires: 14 August 2025                                 10 February 2025
+Expires: 4 September 2025                                   3 March 2025
 
 
             MASQUE extension for signaling throughput advice
@@ -50,7 +50,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 14 August 2025.
+   This Internet-Draft will expire on 4 September 2025.
 
 Copyright Notice
 
@@ -122,13 +122,13 @@ Table of Contents
    THROUGHPUT_ADVICE Capsule {
      Type (i) = 0xTBD,
      Length (i)
-     Bitrate (i)
+     Rate Limit (i)
      [Average Window (i)]
    }
 
    The capsule has the following fields:
 
-   Bitrate: The maximum sustainable throughput that the client can
+   Rate Limit: The maximum sustainable throughput that the client can
    expect for proxied traffic, expressed in kilobits per second.
 
    Average Window: Indicates the duration over which the bitrate is
@@ -136,15 +136,16 @@ Table of Contents
 
 5.  Applicability
 
+   A proxy that intends to rate limit proxied traffic can notify clients
+   using the THROUGHPUT_ADVICE capsule.  Reasons for rate limiting
+   traffic through a proxy include enforcement of access network
+   policies, proxy resource management and proxy service
+   differentiation.
+
    If the sole purpose of the communication between a client endpoint
    and a network element is the exchange of throughput advice, it is
    RECOMMENDED to use more lightweight approaches than HTTP proxying,
-   such as [SCONE] or [TRAIN].
-
-   However, in cases where clients connect to the Internet via MASQUE
-   proxies and also want to receive throughput advice from the MASQUE
-   proxy, it can be beneficial to communicate directly with the proxy
-   using the already established communication channel.
+   such as [TRONE].
 
 6.  Security Considerations
 
@@ -157,11 +158,11 @@ Table of Contents
    This document adds following entries to the "HTTP Capsule Types"
    registry:
 
-                +===============+=======+=================+
-                | Capsule Type  | Value | Specification   |
-                +===============+=======+=================+
-                | MEDIA-BITRATE | TBD   | (This document) |
-                +---------------+-------+-----------------+
+              +===================+=======+=================+
+              | Capsule Type      | Value | Specification   |
+              +===================+=======+=================+
+              | THROUGHPUT_ADVICE | TBD   | (This document) |
+              +-------------------+-------+-----------------+
 
                    Table 1: New Capsule Type to register
 
@@ -198,18 +199,12 @@ Table of Contents
 
 8.2.  Informative References
 
-   [SCONE]    Joras, M. and L. M. Ihlar, "A new QUIC version for network
-              property communication", Work in Progress, Internet-Draft,
-              draft-joras-scone-quic-protocol-00, 21 October 2024,
-              <https://datatracker.ietf.org/doc/html/draft-joras-scone-
-              quic-protocol-00>.
-
-   [TRAIN]    Thomson, M., Huitema, C., and K. Oku, "Transparent Rate
-              Adaptation Indications for Networks (TRAIN) Protocol",
-              Work in Progress, Internet-Draft, draft-thomson-scone-
-              train-protocol-00, 14 October 2024,
-              <https://datatracker.ietf.org/doc/html/draft-thomson-
-              scone-train-protocol-00>.
+   [TRONE]    Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
+              Ihlar, "Transparent Rate Optimization for Network
+              Endpoints (TRONE) Protocol", Work in Progress, Internet-
+              Draft, draft-thoji-scone-trone-protocol-00, 3 March 2025,
+              <https://datatracker.ietf.org/doc/html/draft-thoji-scone-
+              trone-protocol-00>.
 
 Acknowledgments
 

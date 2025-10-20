@@ -30,6 +30,8 @@ author:
     email: mirja.kuehlewind@ericsson.com
 
 normative:
+  SCONE: I-D.ietf-scone-protocol
+  QUIC-PROXY: I-D.ietf-masque-quic-proxy
 
 informative:
 
@@ -70,19 +72,54 @@ The THROUGHPUT_ADVICE Capsule has the following format:
 ~~~
 THROUGHPUT_ADVICE Capsule {
   Type (i) = 0xTBD,
-  Length (i)
-  Rate Limit (i)
+  Length (i),
+  Direction (8),
+  Rate Limit (i),
   [Average Window (i)]
 }
 ~~~
 
 The capsule has the following fields:
 
+Direction: Indicates the traffic direction to which this throughput advice applies.
+Valid values are:
+
+* 0x00: Both uplink and downlink
+* 0x01: Uplink (client to target)
+* 0x02: Downlink (target to client)
+
+A client MUST treat any other value as a malformed capsule.
+
 Rate Limit: The maximum sustainable throughput that the client can expect for proxied traffic,
 expressed in kilobits per second.
 
 Average Window: Indicates the duration over which the bitrate is enforced, expressed in milliseconds.
-This field is optional.
+If this field is omitted the average window is assumed to be 67 seconds as described in {{Section 5.2 of SCONE}}.
+
+# Relationship to the SCONE Protocol
+
+This document reuses the SCONE {{SCONE}} conceptual model for throughput
+advice but scopes signaling to the HTTP tunnel between a MASQUE client and a
+MASQUE server. When the Throughput-Advice header is successfully
+negotiated, the MASQUE server is the entity that originates
+THROUGHPUT_ADVICE capsules toward the client; the client does not send
+capsules unless specified by future extensions.
+
+Implementations that negotiate
+Throughput-Advice for a MASQUE tunnel SHOULD NOT initiate or forward
+SCONE packets on the outer MASQUE connection for the purpose of conveying
+throughput advice.
+
+When a MASQUE proxy observes SCONE packets that belong to an end-to-end
+inner flow carried by the tunnel, the proxy MUST forward those packets unmodified.
+
+## Interaction with QUIC-Aware Forwarding
+
+When used in combination with QUIC-Aware Forwarding
+{{QUIC-PROXY}}, QUIC long-header
+packets are tunnelled rather than being forwarded forwarded directly.
+Since SCONE packets use a dedicated QUIC version and the long-header format,
+they will be encapsulated automatically inside the MASQUE tunnel.
 
 # Applicability
 
@@ -93,11 +130,40 @@ proxy service differentiation.
 
 If the sole purpose of the communication between a client endpoint and a network element
 is the exchange of throughput advice, it is RECOMMENDED to use more lightweight approaches
-than HTTP proxying, such as {{?TRONE=I-D.thoji-scone-trone-protocol}}.
+than HTTP proxying, such as {{SCONE}}.
+
+## Applicability to Proxied Applications
+
+In most MASQUE deployments, the client that terminates the HTTP tunnel is not
+the ultimate endpoint of the application traffic. Throughput advice therefore
+applies to the aggregate traffic carried by the tunnel rather than to any
+individual application flow.
+
+How a MASQUE client exposes throughput advice to the applications that use the
+tunnel is out of scope for this document. Implementations may, for example:
+
+* Use the advice to apply back-pressure on proxied traffic;
+* Forward the information through an out-of-band API or control channel; or
+* Adjust sending behavior on behalf of the application.
+
+For CONNECT-UDP requests, the advice typically corresponds to the throughput
+of a single proxied flow, whereas for CONNECT-IP requests it applies to the
+aggregate traffic within the tunnel.
 
 # Security Considerations
 
-TODO Security
+Throughput advice influences application sending behavior and can therefore
+affect performance and user experience. Implementations MUST treat such
+signals as advisory information.
+A malicious or misconfigured proxy could advertise unrealistically low rate
+limits to degrade service quality or influence path selection and traffic
+distribution. Clients MAY ignore any received advice.
+
+When QUIC-Aware Forwarding is in use, SCONE
+packets are encapsulated as QUIC long-header packets and therefore not
+visible to on-path observers. This encapsulation is RECOMMENDED since it
+prevents correlation between throughput-advice signaling and proxied
+application traffic.
 
 
 # IANA Considerations
@@ -125,4 +191,5 @@ This document adds following entry to the "Hypertext Transfer Protocol (HTTP) Fi
 # Acknowledgments
 {:numbered="false"}
 
-TODO acknowledge.
+Zaheduzzaman Sarker have provided significant comments and feedback
+that has helped shape the draft.

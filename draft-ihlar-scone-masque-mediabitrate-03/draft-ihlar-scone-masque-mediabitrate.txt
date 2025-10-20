@@ -1,0 +1,299 @@
+
+
+
+
+Standard Communication with Network Elements                    M. Ihlar
+Internet-Draft                                              M. Kühlewind
+Intended status: Standards Track                                Ericsson
+Expires: 23 April 2026                                   20 October 2025
+
+
+            MASQUE extension for signaling throughput advice
+              draft-ihlar-scone-masque-mediabitrate-latest
+
+Abstract
+
+   This document specifies a new Capsule (RFC9297) that can be used with
+   CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future CONNECT
+   extensions to signal throughput advice for traffic that is proxied
+   through an HTTP server.
+
+About This Document
+
+   This note is to be removed before publishing as an RFC.
+
+   Status information for this document may be found at
+   https://datatracker.ietf.org/doc/draft-ihlar-scone-masque-
+   mediabitrate/.
+
+   Discussion of this document takes place on the Standard Communication
+   with Network Elements Working Group mailing list
+   (mailto:scone@ietf.org), which is archived at
+   https://mailarchive.ietf.org/arch/browse/scone/.  Subscribe at
+   https://www.ietf.org/mailman/listinfo/scone/.
+
+   Source for this draft and an issue tracker can be found at
+   https://github.com/mirjak/draft-masque-mediabitrate.
+
+Status of This Memo
+
+   This Internet-Draft is submitted in full conformance with the
+   provisions of BCP 78 and BCP 79.
+
+   Internet-Drafts are working documents of the Internet Engineering
+   Task Force (IETF).  Note that other groups may also distribute
+   working documents as Internet-Drafts.  The list of current Internet-
+   Drafts is at https://datatracker.ietf.org/drafts/current/.
+
+   Internet-Drafts are draft documents valid for a maximum of six months
+   and may be updated, replaced, or obsoleted by other documents at any
+   time.  It is inappropriate to use Internet-Drafts as reference
+   material or to cite them other than as "work in progress."
+
+   This Internet-Draft will expire on 23 April 2026.
+
+Copyright Notice
+
+   Copyright (c) 2025 IETF Trust and the persons identified as the
+   document authors.  All rights reserved.
+
+   This document is subject to BCP 78 and the IETF Trust's Legal
+   Provisions Relating to IETF Documents (https://trustee.ietf.org/
+   license-info) in effect on the date of publication of this document.
+   Please review these documents carefully, as they describe your rights
+   and restrictions with respect to this document.  Code Components
+   extracted from this document must include Revised BSD License text as
+   described in Section 4.e of the Trust Legal Provisions and are
+   provided without warranty as described in the Revised BSD License.
+
+Table of Contents
+
+   1.  Introduction
+   2.  Conventions and Definitions
+   3.  Indicating Support for Throughput Advice Signaling
+   4.  THROUGHPUT_ADVICE Capsule Type Format
+   5.  Relationship to the SCONE Protocol
+     5.1.  Interaction with QUIC-Aware Forwarding
+   6.  Applicability
+     6.1.  Applicability to Proxied Applications
+   7.  Security Considerations
+   8.  IANA Considerations
+     8.1.  Capsule types
+     8.2.  HTTP headers
+   9.  Normative References
+   Acknowledgments
+   Authors' Addresses
+
+1.  Introduction
+
+   This document specifies an HTTP Capsule (RFC9297) that can be used
+   with CONNECT-UDP (RFC9298), CONNECT-IP (RFC9484), or other future
+   CONNECT extensions to signal throughput advice for traffic proxied
+   through an HTTP server.
+
+   The extension can be used with the HTTP CONNECT method when the
+   :protocol pseudo-header is equal to "connect-udp" or "connect-ip", as
+   well as with future CONNECT protocols that use the Capsule Protocol.
+
+2.  Conventions and Definitions
+
+   The key words "MUST", "MUST NOT", "REQUIRED", "SHALL", "SHALL NOT",
+   "SHOULD", "SHOULD NOT", "RECOMMENDED", "NOT RECOMMENDED", "MAY", and
+   "OPTIONAL" in this document are to be interpreted as described in
+   BCP 14 [RFC2119] [RFC8174] when, and only when, they appear in all
+   capitals, as shown here.
+
+3.  Indicating Support for Throughput Advice Signaling
+
+   A client that wishes to receive throughput advice capsules can
+   indicate support by sending a request header with the boolean-valued
+   Item Structured Field: "Throughput-Advice: ?1".  The HTTP proxy can
+   indicate support by sending a response header with the same boolean-
+   valued Item Structured Field: "Throughput-Advice: ?1".  See
+   Section 3.3.6 of [RFC8941] for information about the boolean format.
+
+   Once support has been established, a proxy MAY send THROUGHPUT_ADVICE
+   capsules at any time during the lifetime of the stream that
+   originated the request.
+
+4.  THROUGHPUT_ADVICE Capsule Type Format
+
+   The THROUGHPUT_ADVICE Capsule has the following format:
+
+   THROUGHPUT_ADVICE Capsule {
+     Type (i) = 0xTBD,
+     Length (i),
+     Direction (8),
+     Rate Limit (i),
+     [Average Window (i)]
+   }
+
+   The capsule has the following fields:
+
+   Direction: Indicates the traffic direction to which this throughput
+   advice applies.  Valid values are:
+
+   *  0x00: Both uplink and downlink
+
+   *  0x01: Uplink (client to target)
+
+   *  0x02: Downlink (target to client)
+
+   A client MUST treat any other value as a malformed capsule.
+
+   Rate Limit: The maximum sustainable throughput that the client can
+   expect for proxied traffic, expressed in kilobits per second.
+
+   Average Window: Indicates the duration over which the bitrate is
+   enforced, expressed in milliseconds.  If this field is omitted the
+   average window is assumed to be 67 seconds as described in
+   Section 5.2 of [SCONE].
+
+5.  Relationship to the SCONE Protocol
+
+   This document reuses the SCONE [SCONE] conceptual model for
+   throughput advice but scopes signaling to the HTTP tunnel between a
+   MASQUE client and a MASQUE server.  When the Throughput-Advice header
+   is successfully negotiated, the MASQUE server is the entity that
+   originates THROUGHPUT_ADVICE capsules toward the client; the client
+   does not send capsules unless specified by future extensions.
+
+   Implementations that negotiate Throughput-Advice for a MASQUE tunnel
+   SHOULD NOT initiate or forward SCONE packets on the outer MASQUE
+   connection for the purpose of conveying throughput advice.
+
+   When a MASQUE proxy observes SCONE packets that belong to an end-to-
+   end inner flow carried by the tunnel, the proxy MUST forward those
+   packets unmodified.
+
+5.1.  Interaction with QUIC-Aware Forwarding
+
+   When used in combination with QUIC-Aware Forwarding [QUIC-PROXY],
+   QUIC long-header packets are tunnelled rather than being forwarded
+   forwarded directly.  Since SCONE packets use a dedicated QUIC version
+   and the long-header format, they will be encapsulated automatically
+   inside the MASQUE tunnel.
+
+6.  Applicability
+
+   A proxy that intends to rate limit proxied traffic can notify clients
+   using the THROUGHPUT_ADVICE capsule.  Reasons for rate limiting
+   traffic through a proxy include enforcement of access network
+   policies, proxy resource management and proxy service
+   differentiation.
+
+   If the sole purpose of the communication between a client endpoint
+   and a network element is the exchange of throughput advice, it is
+   RECOMMENDED to use more lightweight approaches than HTTP proxying,
+   such as [SCONE].
+
+6.1.  Applicability to Proxied Applications
+
+   In most MASQUE deployments, the client that terminates the HTTP
+   tunnel is not the ultimate endpoint of the application traffic.
+   Throughput advice therefore applies to the aggregate traffic carried
+   by the tunnel rather than to any individual application flow.
+
+   How a MASQUE client exposes throughput advice to the applications
+   that use the tunnel is out of scope for this document.
+   Implementations may, for example:
+
+   *  Use the advice to apply back-pressure on proxied traffic;
+
+   *  Forward the information through an out-of-band API or control
+      channel; or
+
+   *  Adjust sending behavior on behalf of the application.
+
+   For CONNECT-UDP requests, the advice typically corresponds to the
+   throughput of a single proxied flow, whereas for CONNECT-IP requests
+   it applies to the aggregate traffic within the tunnel.
+
+7.  Security Considerations
+
+   Throughput advice influences application sending behavior and can
+   therefore affect performance and user experience.  Implementations
+   MUST treat such signals as advisory information.  A malicious or
+   misconfigured proxy could advertise unrealistically low rate limits
+   to degrade service quality or influence path selection and traffic
+   distribution.  Clients MAY ignore any received advice.
+
+   When QUIC-Aware Forwarding is in use, SCONE packets are encapsulated
+   as QUIC long-header packets and therefore not visible to on-path
+   observers.  This encapsulation is RECOMMENDED since it prevents
+   correlation between throughput-advice signaling and proxied
+   application traffic.
+
+8.  IANA Considerations
+
+8.1.  Capsule types
+
+   This document adds following entries to the "HTTP Capsule Types"
+   registry:
+
+              +===================+=======+=================+
+              | Capsule Type      | Value | Specification   |
+              +===================+=======+=================+
+              | THROUGHPUT_ADVICE | TBD   | (This document) |
+              +-------------------+-------+-----------------+
+
+                   Table 1: New Capsule Type to register
+
+8.2.  HTTP headers
+
+   This document adds following entry to the "Hypertext Transfer
+   Protocol (HTTP) Field Name Registry":
+
+    +===================+==========+===========+===========+==========+
+    | Field Name        | Template | Status    | Reference | Comments |
+    +===================+==========+===========+===========+==========+
+    | Throughput-Advice |          | permanent | (This     |          |
+    |                   |          |           | document) |          |
+    +-------------------+----------+-----------+-----------+----------+
+
+                    Table 2: HTTP Field Name to register
+
+9.  Normative References
+
+   [QUIC-PROXY]
+              Pauly, T., Rosenberg, E., and D. Schinazi, "QUIC-Aware
+              Proxying Using HTTP", Work in Progress, Internet-Draft,
+              draft-ietf-masque-quic-proxy-07, 8 October 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-masque-
+              quic-proxy-07>.
+
+   [RFC2119]  Bradner, S., "Key words for use in RFCs to Indicate
+              Requirement Levels", BCP 14, RFC 2119,
+              DOI 10.17487/RFC2119, March 1997,
+              <https://www.rfc-editor.org/rfc/rfc2119>.
+
+   [RFC8174]  Leiba, B., "Ambiguity of Uppercase vs Lowercase in RFC
+              2119 Key Words", BCP 14, RFC 8174, DOI 10.17487/RFC8174,
+              May 2017, <https://www.rfc-editor.org/rfc/rfc8174>.
+
+   [RFC8941]  Nottingham, M. and P. Kamp, "Structured Field Values for
+              HTTP", RFC 8941, DOI 10.17487/RFC8941, February 2021,
+              <https://www.rfc-editor.org/rfc/rfc8941>.
+
+   [SCONE]    Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
+              Ihlar, "Standard Communication with Network Elements
+              (SCONE) Protocol", Work in Progress, Internet-Draft,
+              draft-ietf-scone-protocol-02, 7 July 2025,
+              <https://datatracker.ietf.org/doc/html/draft-ietf-scone-
+              protocol-02>.
+
+Acknowledgments
+
+   Zaheduzzaman Sarker have provided significant comments and feedback
+   that has helped shape the draft.
+
+Authors' Addresses
+
+   Marcus Ihlar
+   Ericsson
+   Email: marcus.ihlar@ericsson.com
+
+
+   Mirja Kühlewind
+   Ericsson
+   Email: mirja.kuehlewind@ericsson.com

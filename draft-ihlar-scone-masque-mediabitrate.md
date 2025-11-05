@@ -28,6 +28,10 @@ author:
     fullname: Mirja Kühlewind
     organization: Ericsson
     email: mirja.kuehlewind@ericsson.com
+ -
+    fullname: Zaheduzzaman Sarker
+    organization: Nokia
+    email: zaheduzzaman.sarker@nokia.com
 
 normative:
   SCONE: I-D.ietf-scone-protocol

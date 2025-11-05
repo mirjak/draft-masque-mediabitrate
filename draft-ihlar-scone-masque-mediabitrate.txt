@@ -5,7 +5,9 @@
 Standard Communication with Network Elements                    M. Ihlar
 Internet-Draft                                              M. Kühlewind
 Intended status: Standards Track                                Ericsson
-Expires: 23 April 2026                                   20 October 2025
+Expires: 9 May 2026                                            Z. Sarker
+                                                                   Nokia
+                                                         5 November 2025
 
 
             MASQUE extension for signaling throughput advice
@@ -50,7 +52,7 @@ Status of This Memo
    time.  It is inappropriate to use Internet-Drafts as reference
    material or to cite them other than as "work in progress."
 
-   This Internet-Draft will expire on 23 April 2026.
+   This Internet-Draft will expire on 9 May 2026.
 
 Copyright Notice
 
@@ -278,9 +280,9 @@ Table of Contents
    [SCONE]    Thomson, M., Huitema, C., Oku, K., Joras, M., and L. M.
               Ihlar, "Standard Communication with Network Elements
               (SCONE) Protocol", Work in Progress, Internet-Draft,
-              draft-ietf-scone-protocol-02, 7 July 2025,
+              draft-ietf-scone-protocol-03, 20 October 2025,
               <https://datatracker.ietf.org/doc/html/draft-ietf-scone-
-              protocol-02>.
+              protocol-03>.
 
 Acknowledgments
 
@@ -297,3 +299,8 @@ Authors' Addresses
    Mirja Kühlewind
    Ericsson
    Email: mirja.kuehlewind@ericsson.com
+
+
+   Zaheduzzaman Sarker
+   Nokia
+   Email: zaheduzzaman.sarker@nokia.com
